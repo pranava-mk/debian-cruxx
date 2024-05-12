@@ -43,7 +43,7 @@ mv user-dirs.dirs /home/$username/.config
 chown -R $username:$username /home/$username
 
 # Installing Some Programs
-nala install wget unzip zoxide neofetch -y 
+nala install curl wget unzip zoxide neofetch -y 
 
 
 #Installing fonts (also moving fonts from dotfonts to .fonts)
@@ -81,7 +81,7 @@ bash setup.sh
 cd $builddir
 
 #Installing gnome-tweak-tools
-sudo apt install gnome-tweak-tool
+sudo apt install gnome-tweaks
 
 # Use nala
 bash scripts/usenala
