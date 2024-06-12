@@ -9,7 +9,6 @@ fi
 username=$(id -u -n 1000)
 builddir=$(pwd)
 
-
 # Install Terminus Fonts
 sudo apt install fonts-terminus
 
@@ -19,13 +18,18 @@ setfont /usr/share/consolefonts/Uni3-TerminusBold28x14.psf.gz
 # Clear the screen
 clear
 
+#Install Brave Browser
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo apt install brave-browser
+
 # Update packages list and update system
 apt update
 apt upgrade -y
 
 # Install nala
 apt install nala -y
-
 
 # Making .config and Moving config files and wallpapers to Pictures
 cd $builddir
@@ -38,12 +42,15 @@ mkdir -p /home/$username/Pictures/wallpapers
 cp -R dotconfig/* /home/$username/.config/
 cp -R doticons/* /home/$username/.icons/
 cp -R dotthemes/* /home/$username/.themes/
-cp bg.jpg /home/$username/Pictures/wallpapers/
+cp -R wallpapers/* /home/$username/Pictures/wallpapers/
 mv user-dirs.dirs /home/$username/.config
 chown -R $username:$username /home/$username
 
-# Installing Some Programs
-nala install curl wget unzip zoxide neofetch -y 
+# Installing essential programs
+nala install i3 i3blocks feh terminator rofi picom thunar lightdm lxpolkit x11-xserver-utils unzip wget pipewire wireplumber pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev zoxide xdg-utils -y
+
+#Installing other programs
+nala install flameshot neofetch lxappearance fonts-noto-color-emoji -y
 
 
 #Installing fonts (also moving fonts from dotfonts to .fonts)
@@ -68,25 +75,13 @@ cd Nordzy-cursors
 cd $builddir
 rm -rf Nordzy-cursors
 
-#Install Brave Browser
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-sudo apt update
-sudo apt install brave-browser
+# Enable graphical login and change target from CLI to GUI
+systemctl enable lightdm
+systemctl set-default graphical.target
 
-# Beautiful bash
-git clone https://github.com/ChrisTitusTech/mybash
-cd mybash
-bash setup.sh
-cd $builddir
+# Enable wireplumber audio service
 
-#Installing gnome-tweak-tools
-sudo apt install gnome-tweaks
+sudo -u $username systemctl --user enable wireplumber.service
 
 # Use nala
 bash scripts/usenala
-
-
-
-
-
