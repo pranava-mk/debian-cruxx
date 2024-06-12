@@ -53,12 +53,11 @@ cp -R dotconfig/* /home/$username/.config/
 cp -R doticons/* /home/$username/.icons/
 cp -R dotthemes/* /home/$username/.themes/
 cp -R wallpapers/* /home/$username/Pictures/wallpapers/
-mv user-dirs.dirs /home/$username/.config
 chown -R $username:$username /home/$username
 
 # Installing essential programs
 prompt_user "Installing essential programs..."
-nala install -y i3 i3blocks feh terminator rofi picom thunar lightdm lxpolkit x11-xserver-utils unzip wget curl pipewire wireplumber pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev zoxide xdg-utils network-manager network-manager-gnome bluetooth bluez brightnessctl
+nala install -y i3 i3blocks feh terminator rofi picom thunar lightdm lxpolkit x11-xserver-utils unzip wget curl pipewire pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev zoxide xdg-utils network-manager network-manager-gnome bluetooth bluez brightnessctl
 
 # Installing other programs
 prompt_user "Installing additional programs..."
